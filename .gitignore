@@ -1,0 +1,43 @@
+# Ambientes Virtuais (Virtual Environments)
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Bytecode e Cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Capturas de Tráfego de Rede e Dumps (Prevenção de vazamento de dados sensíveis/PCAPs)
+*.pcap
+*.pcapng
+*.cap
+*.dmp
+
+# Logs e Arquivos de Execução
+*.log
+tshark_dump*.txt
+
+# Arquivos de Configuração de IDEs e Editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Testes e Cobertura
+.coverage
+htmlcov/
+.pytest_cache/
