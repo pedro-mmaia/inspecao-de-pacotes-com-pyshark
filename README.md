@@ -35,16 +35,16 @@ O detector combina filtragem no espaço de kernel com processamento de estrutura
 
 ```mermaid
 flowchart TD
-    A[Tráfego de Rede na Interface] --> B{BPF Filter no Kernel\n'tcp-syn e not tcp-ack'}
-    B -- Descartado no Kernel --> X[Tráfego Normal:\nACK, FIN, SYN-ACK, Payload]
-    B -- Encaminhado --> C[TShark Engine / PyShark\nLiveCapture]
-    C --> D[Parser Python:\nExtração de ip.src e tcp.dstport]
-    D --> E[Armazenamento em Memória\nregistro_conexoes[ip_origem].add]
-    E --> F{Total de Portas Únicas >= 15?}
-    F -- Não --> G[Continua Monitorando]
-    F -- Sim --> H{IP Já Alertado?\nips_alertados}
-    H -- Sim --> I[Throttling:\nSuprime Alerta Duplicado]
-    H -- Não --> J[🚨 EMITE ALERTA DE PORT SCAN!\nRegistra em ips_alertados]
+    A["Tráfego de Rede na Interface"] --> B{"Filtro BPF no Kernel<br>(tcp-syn e not tcp-ack)"}
+    B -- Descartado no Kernel --> X["Tráfego Normal:<br>ACK, FIN, SYN-ACK, Payload"]
+    B -- Encaminhado --> C["TShark Engine / PyShark<br>LiveCapture"]
+    C --> D["Parser Python:<br>Extração de ip.src e tcp.dstport"]
+    D --> E["Armazenamento em Memória:<br>registro_conexoes(ip_origem).add(porta)"]
+    E --> F{"Total de Portas Únicas >= 15?"}
+    F -- Não --> G["Continua Monitorando"]
+    F -- Sim --> H{"IP Já Alertado?<br>(ips_alertados)"}
+    H -- Sim --> I["Throttling:<br>Suprime Alerta Duplicado"]
+    H -- Não --> J["🚨 Alerta de Port Scan Disparado!<br>Registra em ips_alertados"]
 ```
 
 ### 1. Filtragem de Baixo Nível no Kernel (BPF - Berkeley Packet Filter)
