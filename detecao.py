@@ -1,17 +1,4 @@
-import asyncio
-import sys
 import pyshark
-
-# Configuração do loop de eventos assíncrono para suprimir erros residuais de fechamento do tshark
-def suprimir_erros_asyncio(loop, context):
-    exception = context.get("exception")
-    if isinstance(exception, (EOFError, BrokenPipeError, ConnectionResetError)):
-        return  # Suprime exceções normais decorrentes do encerramento abrupto do pipe do tshark
-    loop.default_exception_handler(context)
-
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
-loop.set_exception_handler(suprimir_erros_asyncio)
 
 LIMITE_DE_PORTAS = 15
 
@@ -57,5 +44,4 @@ finally:
         captura.close()
     except Exception:
         pass
-    print("\nScript finalizado")
-    sys.exit(0)
+
